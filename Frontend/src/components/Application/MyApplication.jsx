@@ -23,6 +23,7 @@ const MyApplications = () => {
             { withCredentials: true }
           );
           setApplications(res.data.applications || []);
+        } else {
           const res = await axios.get(
             `${import.meta.env.VITE_BACKEND_URL}/api/v1/application/jobseeker/getall`,
             { withCredentials: true }
