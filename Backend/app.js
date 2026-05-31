@@ -22,10 +22,11 @@ const app = express();
 
 const allowedOrigins = [
     process.env.FRONTEND_URL,
+    "https://job-seeking-application-ilvb.vercel.app",
     "http://localhost:5173",
 ].filter(Boolean);
 
-app.use(cors({
+const corsOptions = {
     origin: function (origin, callback) {
         if (!origin || allowedOrigins.includes(origin)) {
             callback(null, true);
@@ -35,9 +36,10 @@ app.use(cors({
     },
     methods: ['GET', 'POST', 'DELETE', 'PUT', 'OPTIONS'],
     credentials: true,
-}));
+};
 
-app.options("/{*path}", cors());
+app.use(cors(corsOptions));
+app.options("/{*path}", cors(corsOptions));
 
 app.use(cookieParser());
 app.use(express.json());
