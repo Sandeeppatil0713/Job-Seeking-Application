@@ -22,13 +22,12 @@ const MyApplications = () => {
             `${import.meta.env.VITE_BACKEND_URL}/api/v1/application/employer/getall`,
             { withCredentials: true }
           );
-          setApplications(res.data.applications);
-        } else {
+          setApplications(res.data.applications || []);
           const res = await axios.get(
             `${import.meta.env.VITE_BACKEND_URL}/api/v1/application/jobseeker/getall`,
             { withCredentials: true }
           );
-          setApplications(res.data.applications);
+          setApplications(res.data.applications || []);
         }
       } catch (error) {
         toast.error(error.response.data.message);
