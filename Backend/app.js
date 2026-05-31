@@ -54,11 +54,19 @@ app.get("/", (req, res) => {
     res.status(200).json({ message: "Backend is running" });
 });
 
+// connect db before handling any request
+app.use(async (req, res, next) => {
+    try {
+        await dbConnection();
+        next();
+    } catch (err) {
+        res.status(500).json({ success: false, message: "Database connection failed" });
+    }
+});
+
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/application', applicationRouter);
 app.use('/api/v1/job', jobRouter);
-
-dbConnection();
 
 app.use(errorMiddleware);
 
