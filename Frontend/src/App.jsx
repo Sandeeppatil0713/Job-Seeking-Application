@@ -34,6 +34,7 @@ const App = () => {
         setIsAuthorized(true);
       } catch (error) {
         setIsAuthorized(false);
+        setUser({});
       }
     };
     fetchUser();
