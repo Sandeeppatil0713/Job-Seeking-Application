@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import fileUpload from 'express-fileupload';
+import cloudinary from 'cloudinary';
 import userRouter from './routes/userRouter.js';
 import applicationRouter from './routes/applicationRouter.js';
 import jobRouter from './routes/jobRouter.js';
@@ -13,6 +14,12 @@ import {errorMiddleware} from './middlewares/error.js'
 dotenv.config({path:"./config/config.env"});
 
 dns.setServers(['1.1.1.1','8.8.8.8']);
+
+cloudinary.v2.config({
+    cloud_name: process.env.CLOUDINARY_CLIENT_NAME,
+    api_key: process.env.CLOUDINARY_CLIENT_API,
+    api_secret: process.env.CLOUDINARY_CLIENT_SECRET,
+});
 
 const app = express();
 
